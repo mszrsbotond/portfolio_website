@@ -1,0 +1,206 @@
+.title {
+    position: relative;
+    display: grid;
+    grid-template-columns: clamp(150px, 19vw, 280px) 1fr;
+    align-items: center;
+    column-gap: clamp(2rem, 5vw, 4rem);
+    min-height: 100vh;
+    padding: 4vh 4vw;
+    color: rgba(89, 33, 31, 1);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.profile-pic {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 40px 40px 40px 40px;
+    filter: grayscale(18%) sepia(12%) contrast(1.05) brightness(1.03);
+    border: 1px solid rgba(89, 33, 31, 0.45);
+    box-shadow: 0 20px 45px rgba(89, 33, 31, 0.2);
+    opacity: 0;
+    animation: photo-spin-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes photo-spin-in {
+    from {
+        opacity: 0;
+        transform: scale(0.55) rotate(-22deg);
+    }
+    60% {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.title-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    container-type: inline-size;
+}
+
+.title-top {
+    font-family: 'EB Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(0.9rem, 1.4vw, 1.3rem);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem 0.15em;
+}
+
+.title-main {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: clamp(2.4rem, 10cqw, 7.2rem);
+    line-height: 0.95;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.name-word {
+    display: inline-flex;
+}
+
+.name-word + .name-word {
+    margin-left: 0.28em;
+}
+
+.name-letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.6em);
+    animation: name-letter-rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--i) * 45ms);
+}
+
+@keyframes name-letter-rise {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .name-letter,
+    .profile-pic,
+    .cv-button {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.title-bottom {
+    /* Left-anchored, same as the heading — its width is pinned in JS (see
+       HomePage.jsx) to the heading's rendered text width, so the flex-end
+       alignment below lands its lines flush with where the name actually
+       ends, not with this column's far-wider box. */
+    align-self: flex-start;
+    margin-top: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+    letter-spacing: 0.02em;
+    color: rgba(89, 33, 31, 0.55);
+}
+
+.cv-button {
+    align-self: flex-end;
+    margin-top: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(89, 33, 31, 0.35);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: clamp(0.78rem, 1vw, 0.88rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(89, 33, 31, 0.85);
+    white-space: nowrap;
+    opacity: 0;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    animation: button-rise-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered after the photo (photo-spin-in finishes at 0.9s) so the two
+   buttons drop in one after another instead of all at once. */
+.cv-button:nth-of-type(1) {
+    animation-delay: 0.95s;
+}
+
+.cv-button:nth-of-type(2) {
+    animation-delay: 1.15s;
+}
+
+@keyframes button-rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* A bordered pill already reads as a button on its own — skip the site-wide
+   a::after underline (index.css) so it doesn't double up with the border. */
+.cv-button::after {
+    content: none;
+}
+
+.cv-button:hover {
+    background: rgba(89, 33, 31, 0.9);
+    border-color: rgba(89, 33, 31, 0.9);
+    color: rgba(253, 243, 230, 1);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 760px) {
+    .title {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        row-gap: 2rem;
+    }
+
+    .profile-pic {
+        width: min(55vw, 240px);
+    }
+
+    .title-text {
+        align-items: center;
+    }
+
+    .title-main {
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: clamp(2.2rem, 12vw, 4.5rem);
+    }
+
+    .title-bottom {
+        align-self: center;
+        align-items: center;
+    }
+
+    .cv-button {
+        align-self: center;
+    }
+}

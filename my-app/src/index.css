@@ -1,0 +1,48 @@
+body{
+  background-color: rgba(253, 243, 230);
+}
+
+/* Anchor-link navigation (see Header/Header.jsx): smooth-scroll to the target,
+   and keep it from landing flush under the fixed header. */
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Every clickable element gets a shared hover cue: an underline that grows in
+   from the left instead of just appearing, so the feedback feels intentional
+   rather than a plain CSS default. Individual components can still layer their
+   own hover styles (color changes, etc.) on top of this. */
+a,
+button {
+  position: relative;
+  text-decoration: none;
+}
+
+a::after,
+button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.15em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+a:hover::after,
+button:hover::after {
+  transform: scaleX(1);
+}

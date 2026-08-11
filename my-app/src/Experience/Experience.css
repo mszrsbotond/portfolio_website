@@ -1,0 +1,173 @@
+.experience {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 10vh 6vw 8vh;
+    box-sizing: border-box;
+    color: rgba(89, 33, 31, 1);
+    overflow: hidden;
+}
+
+.experience-heading {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.15;
+    font-size: clamp(2.1rem, 5.2vw, 3.8rem);
+    margin: 0 0 6vh;
+}
+
+.experience-heading span {
+    display: block;
+    background: linear-gradient(90deg, #7a3226, #b5674a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.experience-track {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.experience-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        to bottom,
+        rgba(89, 33, 31, 0) 0%,
+        rgba(89, 33, 31, 0.35) 10%,
+        rgba(89, 33, 31, 0.35) 100%
+    );
+}
+
+.experience-dot {
+    position: absolute;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(89, 33, 31, 0.95);
+    box-shadow: 0 0 0 6px rgba(89, 33, 31, 0.1), 0 0 22px 4px rgba(89, 33, 31, 0.3);
+    transform: translate(-50%, -50%);
+    /* Position is eased in JS on every animation frame, so no CSS transition here —
+       one would just fight the per-frame updates instead of adding smoothness. */
+    top: 0;
+}
+
+.experience-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 6vw, 5rem);
+}
+
+.experience-row.side-right {
+    justify-items: end;
+}
+
+.side-left .experience-card {
+    grid-column: 1;
+}
+
+.side-right .experience-card {
+    grid-column: 2;
+}
+
+.experience-card {
+    max-width: 440px;
+    padding: 1.75rem 2rem;
+    box-sizing: border-box;
+    background: rgba(89, 33, 31, 0.045);
+    border: 1px solid rgba(89, 33, 31, 0.14);
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(89, 33, 31, 0.08);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.side-left .experience-card {
+    transform: translate(-24px, 20px);
+}
+
+.side-right .experience-card {
+    transform: translate(24px, 20px);
+}
+
+.experience-card.is-visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.experience-card .card-year {
+    display: block;
+    font-family: 'EB Garamond', serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+    color: rgba(89, 33, 31, 0.8);
+    margin-bottom: 0.35rem;
+}
+
+.experience-card h3 {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    line-height: 1.2;
+    margin: 0;
+}
+
+.experience-card .card-subtitle {
+    display: block;
+    margin-top: 0.4rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    color: rgba(89, 33, 31, 0.55);
+}
+
+.experience-card p {
+    margin: 0.9rem 0 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: rgba(89, 33, 31, 0.7);
+}
+
+@media (max-width: 760px) {
+    .experience-track {
+        padding-left: 2.5rem;
+    }
+
+    .experience-line {
+        left: 0;
+    }
+
+    .experience-dot {
+        left: 0;
+    }
+
+    .experience-row,
+    .experience-row.side-right {
+        display: block;
+        justify-items: unset;
+    }
+
+    .side-left .experience-card,
+    .side-right .experience-card {
+        grid-column: unset;
+        max-width: 100%;
+        transform: translateY(20px);
+    }
+
+    .experience-card.is-visible {
+        transform: translateY(0);
+    }
+}

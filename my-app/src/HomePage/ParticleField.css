@@ -1,0 +1,9 @@
+/* Sits behind the hero content (see the negative z-index) and never intercepts
+   clicks — .title establishes the positioning context this is measured against. */
+.particle-field {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    display: block;
+}

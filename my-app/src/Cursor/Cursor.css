@@ -1,0 +1,125 @@
+/* The two circles live in a fixed, full-viewport overlay; each circle itself is
+   positioned via a JS-driven transform (set every animation frame), not by
+   moving this wrapper. */
+.custom-cursor {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.cursor-ring,
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(89, 33, 31, 0.55);
+    box-sizing: border-box;
+    will-change: transform;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.3s ease, opacity 0.3s ease;
+}
+
+.cursor-ring {
+    width: 44px;
+    height: 44px;
+}
+
+.cursor-dot {
+    width: 18px;
+    height: 18px;
+    border-color: rgba(89, 33, 31, 0.85);
+}
+
+/* The one-shot burst (see Cursor.jsx): the ring puffs up and warms toward the
+   accent color, the dot pinches down to a point — both purely transitional,
+   they ease straight back to their resting size once .is-bursting drops off. */
+.custom-cursor.is-bursting .cursor-ring {
+    width: 76px;
+    height: 76px;
+    border-color: #b5674a;
+}
+
+.custom-cursor.is-bursting .cursor-dot {
+    width: 8px;
+    height: 8px;
+}
+
+/* Positioned to track the ring (see Cursor.jsx's tick loop); zero-size so its
+   own box never needs layout, only its particle children are visible. */
+.cursor-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.cursor-particle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: rgba(89, 33, 31, 0.75);
+    opacity: 0;
+}
+
+/* Scatter outward from the center (0%→20%), shake in place around that
+   landing point (20%→80%), then collapse back toward center and fade
+   (80%→100%) — ~0.3s total, matching the ring/dot's own burst-and-settle. */
+.cursor-particles.is-bursting .cursor-particle {
+    animation: cursor-particle-burst 0.32s var(--delay) cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+
+@keyframes cursor-particle-burst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translate(0, 0) scale(0.4);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) scale(1);
+    }
+    40% {
+        transform: translate(-50%, -50%) translate(calc(var(--dx) + var(--jx)), calc(var(--dy) - var(--jy))) scale(1);
+    }
+    60% {
+        transform: translate(-50%, -50%) translate(calc(var(--dx) - var(--jx)), calc(var(--dy) + var(--jy))) scale(1);
+    }
+    80% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(calc(var(--dx) + var(--jy)), calc(var(--dy) - var(--jx))) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translate(calc(var(--dx) * 0.4), calc(var(--dy) * 0.4)) scale(0.3);
+    }
+}
+
+/* Only swap in the custom cursor once JS confirms a fine pointer is present —
+   see Cursor.jsx. Until then the native cursor stays untouched. */
+body.custom-cursor-active,
+body.custom-cursor-active a,
+body.custom-cursor-active button,
+body.custom-cursor-active input,
+body.custom-cursor-active textarea,
+body.custom-cursor-active select,
+body.custom-cursor-active label {
+    cursor: none;
+}
+
+body.custom-cursor-active .custom-cursor .cursor-ring,
+body.custom-cursor-active .custom-cursor .cursor-dot,
+body.custom-cursor-active .custom-cursor .cursor-particles {
+    opacity: 0;
+}
+
+body.custom-cursor-active.custom-cursor-visible .custom-cursor .cursor-ring,
+body.custom-cursor-active.custom-cursor-visible .custom-cursor .cursor-dot,
+body.custom-cursor-active.custom-cursor-visible .custom-cursor .cursor-particles {
+    opacity: 1;
+}
