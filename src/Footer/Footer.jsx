@@ -11,7 +11,7 @@ const FOOTER_NAV = [
 ]
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/botond-m%C3%A9sz%C3%A1ros-900166350/'
-const EMAIL = 'botond00723@gmail.com'
+const EMAIL = 'dev@meszarosbotond.hu'
 
 export default function Footer() {
     const year = new Date().getFullYear()
