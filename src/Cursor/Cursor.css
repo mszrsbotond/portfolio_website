@@ -6,6 +6,18 @@
     inset: 0;
     z-index: 9999;
     pointer-events: none;
+    /* Hidden by default, not just inert: on a coarse/touch pointer the JS in
+       Cursor.jsx bails out before ever positioning these circles or adding
+       the custom-cursor-active class that normally controls their opacity,
+       so without this they'd sit fully visible, pinned at (0, 0). Mirrors
+       the same (pointer: fine) check the JS makes. */
+    display: none;
+}
+
+@media (pointer: fine) {
+    .custom-cursor {
+        display: block;
+    }
 }
 
 .cursor-ring,
