@@ -163,3 +163,16 @@
         max-width: 100%;
     }
 }
+
+/* "Mivel"+"Foglalkozom" are glued into one unbreakable line (no space between
+   them in the markup — the visual gap comes from the span's margin instead),
+   unlike the shorter headings elsewhere in the site. At the 2.4rem clamp floor
+   that combination is wide enough to eat the section's entire right padding
+   on narrow phones. Shrink the floor further just for that range so it keeps
+   its breathing room; 460px comfortably covers real phones while leaving the
+   tablet-width behavior above (already fluid via the base clamp) untouched. */
+@media (max-width: 460px) {
+    .wid-heading {
+        font-size: clamp(1.6rem, 8vw, 2.4rem);
+    }
+}
