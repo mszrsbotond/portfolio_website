@@ -30,6 +30,12 @@
     align-items: center;
     gap: clamp(1.25rem, 3vw, 2.5rem);
     overflow-x: auto;
+    /* overflow-x: auto silently computes overflow-y to auto too, which clips
+       anything poking out below a child's box — including the shared a::after
+       underline (index.css), which sits a little below each link. Padding
+       the nav itself (not the links) gives that underline room inside the
+       clipped scrollport without shifting the links' own layout. */
+    padding-bottom: 0.4em;
     scrollbar-width: none;
 }
 
