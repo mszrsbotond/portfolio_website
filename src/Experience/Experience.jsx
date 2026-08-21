@@ -12,7 +12,7 @@ const rows = [
             title: 'Szoftverfejlesztő Gyakornok',
             subtitle: 'Lear Corporation, Gödöllő',
             description:
-                'Ipari (Industry 4.0) szoftverrendszereken dolgozom Palantir Foundry alapokon — adatmodellezéstől a felhasználói felületekig, amelyek átláthatóbbá teszik a gyártási folyamatokat.',
+                'Ipari (Industry 4.0) szoftverrendszereken dolgozom Palantir Foundry alapokon adatmodellezéstől a felhasználói felületekig, amelyek átláthatóbbá teszik a gyártási folyamatokat.',
         },
         {
             side: 'right',
