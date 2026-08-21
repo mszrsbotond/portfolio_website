@@ -64,18 +64,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: clamp(2rem, 6vw, 5rem);
-}
-
-.experience-row.side-right {
-    justify-items: end;
-}
-
-.side-left .experience-card {
-    grid-column: 1;
-}
-
-.side-right .experience-card {
-    grid-column: 2;
+    row-gap: clamp(1.25rem, 3vw, 2rem);
 }
 
 .experience-card {
@@ -91,11 +80,18 @@
     transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.side-left .experience-card {
+/* Each card picks its own column and outer-edge alignment, rather than the
+   row doing it — that's what lets a row hold one card OR two (side by side,
+   same height) without any extra markup. */
+.experience-card.card-left {
+    grid-column: 1;
+    justify-self: start;
     transform: translate(-24px, 20px);
 }
 
-.side-right .experience-card {
+.experience-card.card-right {
+    grid-column: 2;
+    justify-self: end;
     transform: translate(24px, 20px);
 }
 
@@ -154,17 +150,21 @@
         left: 0;
     }
 
-    .experience-row,
-    .experience-row.side-right {
+    .experience-row {
         display: block;
-        justify-items: unset;
     }
 
-    .side-left .experience-card,
-    .side-right .experience-card {
+    .experience-card.card-left,
+    .experience-card.card-right {
         grid-column: unset;
+        justify-self: unset;
         max-width: 100%;
         transform: translateY(20px);
+    }
+
+    .experience-card.card-left + .experience-card.card-right,
+    .experience-card.card-right + .experience-card.card-left {
+        margin-top: clamp(2rem, 6vw, 3rem);
     }
 
     .experience-card.is-visible {
