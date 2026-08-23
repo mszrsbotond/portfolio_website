@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { SiTheodinproject, SiPalantir } from 'react-icons/si'
 import { FaGraduationCap } from 'react-icons/fa6'
+import topImg from '../assets/TOP.jpg'
+import cs50Img from '../assets/cs50.jpg'
+import palantirImg from '../assets/PalantirFoundry.jpg'
 import './Learning.css'
 
 const DESKTOP_BREAKPOINT = 760
@@ -15,6 +18,7 @@ const items = [
         tag: 'Önálló tanulás — Full-Stack Webfejlesztés',
         description:
             'Végigvittem a teljes full-stack tananyagot: HTML, CSS és JavaScript alapoktól Node.js-en és adatbázisokon át valódi, önállóan megírt projektekig — gyakorlat-központú, projekt-alapú tanulás.',
+        image: topImg,
     },
     {
         Icon: FaGraduationCap,
@@ -22,6 +26,7 @@ const items = [
         tag: 'Bevezetés a Számítástudományba',
         description:
             'Elvégeztem a Harvard University informatikai alapkurzusát: algoritmusok, adatszerkezetek és memóriakezelés C-ben, majd Python, SQL és webfejlesztés — ez alapozta meg a rendszerszintű gondolkodásmódomat.',
+        image: cs50Img,
     },
     {
         Icon: SiPalantir,
@@ -29,6 +34,7 @@ const items = [
         tag: 'Ipari adatplatform kurzus',
         description:
             'Elsajátítottam a Foundry adatintegrációs és ontológia-modellezési alapjait — ez adja a jelenlegi ipari (Industry 4.0) fejlesztői munkám technológiai hátterét a Lear Corporationnél.',
+        image: palantirImg,
     },
 ]
 
@@ -117,7 +123,7 @@ export default function Learning() {
                     </div>
 
                     <div className="learning-track" ref={trackRef}>
-                        {items.map(({ Icon, title, tag, description }, i) => (
+                        {items.map(({ Icon, title, tag, description, image }, i) => (
                             <article
                                 className={`learning-card${revealed[i] ? ' is-visible' : ''}`}
                                 key={title}
@@ -133,11 +139,8 @@ export default function Learning() {
                                     </div>
                                 </header>
 
-                                {/* Placeholder until real course photos/screenshots replace it —
-                                    one image slot per course (see Learning.css for the styling
-                                    that marks it as a stand-in, not a broken image). */}
-                                <div className="learning-card-media" aria-hidden="true">
-                                    <Icon className="learning-card-media-icon" />
+                                <div className="learning-card-media">
+                                    <img className="learning-card-media-img" src={image} alt={title} />
                                 </div>
 
                                 <p className="learning-card-description">{description}</p>

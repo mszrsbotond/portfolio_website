@@ -112,23 +112,27 @@
     margin: 0;
 }
 
-/* Stand-in for a real course photo/screenshot: a dashed frame around a large,
-   muted version of the same brand mark rather than a plain empty box, so it
-   reads as "image coming here" instead of a layout bug. */
 .learning-card-media {
     height: clamp(150px, 26vh, 240px);
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     background: rgba(89, 33, 31, 0.04);
-    border: 1px dashed rgba(89, 33, 31, 0.25);
+    border: 1px solid rgba(89, 33, 31, 0.14);
     border-radius: 16px;
+    box-shadow: 0 20px 45px rgba(89, 33, 31, 0.08);
 }
 
-.learning-card-media-icon {
-    font-size: clamp(2.5rem, 6vw, 3.75rem);
-    color: rgba(89, 33, 31, 0.18);
+.learning-card-media-img {
+    width: 100%;
+    height: 100%;
+    /* contain, not cover: these are screenshots/diagrams with text and logos
+       in them (the CS50 stage caption, Palantir's diagram labels) — cropping
+       to fill the box could slice that off, so the whole image stays visible
+       and letterboxes into the card's tint instead. */
+    object-fit: contain;
 }
 
 .learning-card-description {
