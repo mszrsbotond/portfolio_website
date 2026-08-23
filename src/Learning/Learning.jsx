@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SiTheodinproject, SiPalantir } from 'react-icons/si'
 import { FaGraduationCap } from 'react-icons/fa6'
 import './Learning.css'
@@ -32,6 +32,13 @@ const items = [
     },
 ]
 
+// A card counts as "arrived" once it's scrolled far enough left into the
+// pinned viewport — past this fraction of the viewport width, counting from
+// the right edge it slides in from. Recomputed live off the same scroll
+// progress as the track's transform, so scrolling back up un-reveals a card
+// again, same as the Experience timeline's dot-driven reveal.
+const REVEAL_FRACTION = 0.72
+
 // Desktop: the wrapper is items.length viewport-heights tall, its inner
 // .learning-sticky stays pinned (position: sticky) while that scrolls past,
 // and the card track's horizontal position is driven directly off how far
@@ -43,6 +50,8 @@ const items = [
 export default function Learning() {
     const wrapRef = useRef(null)
     const trackRef = useRef(null)
+    const cardRefs = useRef([])
+    const [revealed, setRevealed] = useState(() => items.map(() => false))
 
     useEffect(() => {
         const wrap = wrapRef.current
@@ -66,6 +75,20 @@ export default function Learning() {
             const progress = Math.min(1, Math.max(0, -rect.top / scrollable))
             const maxTranslate = Math.max(0, track.scrollWidth - track.clientWidth)
             track.style.transform = `translate3d(${-progress * maxTranslate}px, 0, 0)`
+
+            // Reading geometry back right after writing the transform forces a
+            // reflow, but there are only a handful of cards — a non-issue.
+            setRevealed((prev) => {
+                let changed = false
+                const next = prev.map((wasRevealed, i) => {
+                    const card = cardRefs.current[i]
+                    if (!card) return wasRevealed
+                    const isRevealed = card.getBoundingClientRect().left < window.innerWidth * REVEAL_FRACTION
+                    if (isRevealed !== wasRevealed) changed = true
+                    return isRevealed
+                })
+                return changed ? next : prev
+            })
         }
 
         const requestFrame = () => {
@@ -94,12 +117,30 @@ export default function Learning() {
                     </div>
 
                     <div className="learning-track" ref={trackRef}>
-                        {items.map(({ Icon, title, tag, description }) => (
-                            <article className="learning-card" key={title}>
-                                <Icon className="learning-card-icon" aria-hidden="true" />
-                                <span className="learning-card-tag">{tag}</span>
-                                <h3>{title}</h3>
-                                <p>{description}</p>
+                        {items.map(({ Icon, title, tag, description }, i) => (
+                            <article
+                                className={`learning-card${revealed[i] ? ' is-visible' : ''}`}
+                                key={title}
+                                ref={(el) => {
+                                    cardRefs.current[i] = el
+                                }}
+                            >
+                                <header className="learning-card-header">
+                                    <Icon className="learning-card-logo" aria-hidden="true" />
+                                    <div className="learning-card-heading">
+                                        <span className="learning-card-tag">{tag}</span>
+                                        <h3>{title}</h3>
+                                    </div>
+                                </header>
+
+                                {/* Placeholder until real course photos/screenshots replace it —
+                                    one image slot per course (see Learning.css for the styling
+                                    that marks it as a stand-in, not a broken image). */}
+                                <div className="learning-card-media" aria-hidden="true">
+                                    <Icon className="learning-card-media-icon" />
+                                </div>
+
+                                <p className="learning-card-description">{description}</p>
                             </article>
                         ))}
                     </div>

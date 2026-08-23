@@ -21,7 +21,7 @@
 
 .learning-intro {
     padding: 0 6vw;
-    margin-bottom: 5vh;
+    margin-bottom: 3.5vh;
 }
 
 .learning-heading {
@@ -60,44 +60,81 @@
 
 .learning-card {
     flex: 0 0 auto;
-    width: min(60vw, 560px);
-    padding: 2.5rem;
+    /* Wide enough that only the current card plus a peek of the next one
+       fits at a time on a typical desktop viewport — otherwise, with 3 items,
+       most of the track would already fit on screen at once and the "one
+       arrives as you scroll" effect would barely register. */
+    width: min(70vw, 640px);
     box-sizing: border-box;
-    background: rgba(89, 33, 31, 0.045);
-    border: 1px solid rgba(89, 33, 31, 0.14);
-    border-radius: 18px;
-    box-shadow: 0 20px 45px rgba(89, 33, 31, 0.08);
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.learning-card-icon {
-    display: block;
-    font-size: 2.4rem;
+.learning-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.learning-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.learning-card-logo {
+    flex: 0 0 auto;
+    font-size: 2.1rem;
     color: #b5674a;
-    margin-bottom: 1.5rem;
+}
+
+.learning-card-heading {
+    min-width: 0;
 }
 
 .learning-card-tag {
     display: block;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: rgba(89, 33, 31, 0.55);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.3rem;
 }
 
-.learning-card h3 {
+.learning-card-heading h3 {
     font-family: 'Italiana', serif;
     font-weight: 400;
-    font-size: clamp(1.4rem, 2.4vw, 2rem);
-    margin: 0 0 1rem;
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+    line-height: 1.1;
+    margin: 0;
 }
 
-.learning-card p {
+/* Stand-in for a real course photo/screenshot: a dashed frame around a large,
+   muted version of the same brand mark rather than a plain empty box, so it
+   reads as "image coming here" instead of a layout bug. */
+.learning-card-media {
+    height: clamp(150px, 26vh, 240px);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(89, 33, 31, 0.04);
+    border: 1px dashed rgba(89, 33, 31, 0.25);
+    border-radius: 16px;
+}
+
+.learning-card-media-icon {
+    font-size: clamp(2.5rem, 6vw, 3.75rem);
+    color: rgba(89, 33, 31, 0.18);
+}
+
+.learning-card-description {
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     line-height: 1.7;
     color: rgba(89, 33, 31, 0.7);
     margin: 0;
@@ -130,9 +167,13 @@
     .learning-card {
         width: 82vw;
         scroll-snap-align: start;
+        /* No pinned scroll driving the reveal here — cards ride in with the
+           swipe itself, so skip the extra fade/rise and its is-visible gate. */
+        opacity: 1;
+        transform: none;
     }
 
-    .learning-card:first-child {
-        margin-left: 0;
+    .learning-card-media {
+        height: 42vw;
     }
 }
