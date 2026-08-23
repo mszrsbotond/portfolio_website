@@ -8,6 +8,7 @@ const FOOTER_NAV = [
     { href: '#technologia', label: 'Technológiai Stack' },
     { href: '#projektek', label: 'Projektek' },
     { href: '#szakmai-hatter', label: 'Szakmai Háttér' },
+    { href: '#tanultam', label: 'Amit Tanultam' },
 ]
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/botond-m%C3%A9sz%C3%A1ros-900166350/'

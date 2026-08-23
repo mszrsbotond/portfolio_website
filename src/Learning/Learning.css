@@ -1,0 +1,138 @@
+.learning {
+    position: relative;
+    color: rgba(89, 33, 31, 1);
+}
+
+.learning-pin-wrap {
+    position: relative;
+    height: calc(var(--item-count) * 100vh);
+}
+
+.learning-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.learning-intro {
+    padding: 0 6vw;
+    margin-bottom: 5vh;
+}
+
+.learning-heading {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    line-height: 0.95;
+    font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+    text-transform: uppercase;
+    margin: 0 0 1rem;
+}
+
+.learning-heading span {
+    margin-left: 0.35em;
+    background: linear-gradient(90deg, #7a3226, #b5674a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.learning-intro p {
+    max-width: 560px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(89, 33, 31, 0.65);
+    margin: 0;
+}
+
+.learning-track {
+    display: flex;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    padding: 0 6vw;
+    will-change: transform;
+}
+
+.learning-card {
+    flex: 0 0 auto;
+    width: min(60vw, 560px);
+    padding: 2.5rem;
+    box-sizing: border-box;
+    background: rgba(89, 33, 31, 0.045);
+    border: 1px solid rgba(89, 33, 31, 0.14);
+    border-radius: 18px;
+    box-shadow: 0 20px 45px rgba(89, 33, 31, 0.08);
+}
+
+.learning-card-icon {
+    display: block;
+    font-size: 2.4rem;
+    color: #b5674a;
+    margin-bottom: 1.5rem;
+}
+
+.learning-card-tag {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(89, 33, 31, 0.55);
+    margin-bottom: 0.6rem;
+}
+
+.learning-card h3 {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    margin: 0 0 1rem;
+}
+
+.learning-card p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(89, 33, 31, 0.7);
+    margin: 0;
+}
+
+@media (max-width: 760px) {
+    .learning-pin-wrap {
+        height: auto;
+    }
+
+    .learning-sticky {
+        position: static;
+        height: auto;
+        padding: 8vh 0;
+    }
+
+    .learning-intro {
+        padding: 0 6vw;
+    }
+
+    .learning-track {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        /* Same edge-fade hint as the header nav's scrollable pill row. */
+        mask-image: linear-gradient(to right, transparent, black 4%, black 94%, transparent);
+        transform: none !important;
+    }
+
+    .learning-card {
+        width: 82vw;
+        scroll-snap-align: start;
+    }
+
+    .learning-card:first-child {
+        margin-left: 0;
+    }
+}

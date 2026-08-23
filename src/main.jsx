@@ -8,6 +8,7 @@ import WhatIDo from './WhatIDo/WhatIDo'
 import TechStack from './TechStack/TechStack'
 import Projects from './Projects/Projects'
 import Experience from './Experience/Experience'
+import Learning from './Learning/Learning'
 import Footer from './Footer/Footer'
 
 createRoot(document.getElementById('root')).render(
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')).render(
     <TechStack/>
     <Projects/>
     <Experience/>
+    <Learning/>
     <Footer/>
   </StrictMode>,
 )

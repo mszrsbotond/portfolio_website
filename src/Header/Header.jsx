@@ -8,6 +8,7 @@ const NAV_ITEMS = [
     { href: '#technologia', label: 'Technológiai Stack' },
     { href: '#projektek', label: 'Projektek' },
     { href: '#szakmai-hatter', label: 'Szakmai Háttér' },
+    { href: '#tanultam', label: 'Amit Tanultam' },
 ]
 
 export default function Header() {
