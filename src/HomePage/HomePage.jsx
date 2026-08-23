@@ -11,6 +11,20 @@ const NAME_WORDS = NAME.split(' ')
 const DESKTOP_BREAKPOINT = 760
 const LINKEDIN_URL = 'https://www.linkedin.com/in/botond-m%C3%A9sz%C3%A1ros-900166350/'
 
+// What ScrambleText cycles through under the name — on hover, and every few
+// seconds on its own (see ScrambleText.jsx).
+const TITLE_WORDS = [
+    'Szoftverfejlesztő',
+    'Software Engineer',
+    'Developer',
+    'Full-Stack Developer',
+    'Backend Developer',
+    'Founder',
+    'Mérnökinformatikus',
+    'Fejlesztő',
+    'Webfejlesztő',
+]
+
 export default function HomePage(){
     // Flat left-to-right index across the whole name (spaces excluded) drives the
     // per-letter animation-delay, so the reveal reads as one continuous sweep even
@@ -75,7 +89,7 @@ export default function HomePage(){
                     ))}
                 </h1>
                 <div className="title-bottom" ref={titleBottomRef}>
-                    <ScrambleText text="Szoftverfejlesztő" />
+                    <ScrambleText words={TITLE_WORDS} />
                     <a className="cv-button" href={cvPdf} download="Meszaros_Botond_Oneletrajz.pdf">
                         Önéletrajz <span aria-hidden="true">↓</span>
                     </a>
