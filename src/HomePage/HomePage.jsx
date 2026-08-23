@@ -15,12 +15,10 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/botond-m%C3%A9sz%C3%A1ros-9001
 // seconds on its own (see ScrambleText.jsx).
 const TITLE_WORDS = [
     'Szoftverfejlesztő',
-    'Software Engineer',
-    'Developer',
-    'Full-Stack Developer',
-    'Backend Developer',
-    'Founder',
-    'Mérnökinformatikus',
+    'Full-Stack Fejlesztő',
+    'Szoftvermérnök',
+    'Backend Fejlesztő',
+    'Mérnökinformatikus Hallgató',
     'Fejlesztő',
     'Webfejlesztő',
 ]
