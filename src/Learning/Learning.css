@@ -126,13 +126,11 @@
 }
 
 .learning-card-media-img {
+    display: block;
     width: 100%;
     height: 100%;
-    /* contain, not cover: these are screenshots/diagrams with text and logos
-       in them (the CS50 stage caption, Palantir's diagram labels) — cropping
-       to fill the box could slice that off, so the whole image stays visible
-       and letterboxes into the card's tint instead. */
-    object-fit: contain;
+    object-fit: cover;
+    border-radius: 16px;
 }
 
 .learning-card-description {
